@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 13, 2018 at 08:56 PM
+-- Generation Time: Dec 13, 2018 at 09:22 PM
 -- Server version: 5.7.24-0ubuntu0.18.04.1
 -- PHP Version: 7.2.10-0ubuntu0.18.04.1
 
@@ -95,7 +95,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (29, 'Can add parcel data', 8, 'add_parceldata'),
 (30, 'Can change parcel data', 8, 'change_parceldata'),
 (31, 'Can delete parcel data', 8, 'delete_parceldata'),
-(32, 'Can view parcel data', 8, 'view_parceldata');
+(32, 'Can view parcel data', 8, 'view_parceldata'),
+(33, 'Can add parcel status', 9, 'add_parcelstatus'),
+(34, 'Can change parcel status', 9, 'change_parcelstatus'),
+(35, 'Can delete parcel status', 9, 'delete_parcelstatus'),
+(36, 'Can view parcel status', 9, 'view_parcelstatus');
 
 -- --------------------------------------------------------
 
@@ -123,7 +127,7 @@ CREATE TABLE `auth_user` (
 --
 
 INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
-(1, 'pbkdf2_sha256$120000$b8PlK8qEzyvo$kTLoX8TkqKKRdgXSee5dCHmONdV4d7P+uDz8zq0FbX4=', '2018-12-13 20:45:27.101753', 1, 'speedadmin', '', '', 'speedadmin@gmail.com', 1, 1, '2018-12-13 18:44:20.855800');
+(1, 'pbkdf2_sha256$120000$b8PlK8qEzyvo$kTLoX8TkqKKRdgXSee5dCHmONdV4d7P+uDz8zq0FbX4=', '2018-12-13 20:45:27.000000', 1, 'speedadmin', 'Speed', 'Courier', 'speedadmin@gmail.com', 1, 1, '2018-12-13 18:44:20.000000');
 
 -- --------------------------------------------------------
 
@@ -173,6 +177,31 @@ INSERT INTO `couriertrack_parceldata` (`id`, `parcel_number`, `created_at`) VALU
 (2, '69855412', '2018-12-13 20:55:49.631617'),
 (3, '3652214584', '2018-12-13 20:55:54.557579'),
 (4, '8954112541', '2018-12-13 20:55:59.037513');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `couriertrack_parcelstatus`
+--
+
+DROP TABLE IF EXISTS `couriertrack_parcelstatus`;
+CREATE TABLE `couriertrack_parcelstatus` (
+  `id` int(11) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `parcel_id` int(11) NOT NULL,
+  `status_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `couriertrack_parcelstatus`
+--
+
+INSERT INTO `couriertrack_parcelstatus` (`id`, `created_at`, `parcel_id`, `status_id`) VALUES
+(1, '2018-12-13 21:17:13.439220', 1, 1),
+(2, '2018-12-13 21:17:21.695086', 1, 3),
+(3, '2018-12-13 21:17:30.001074', 2, 2),
+(4, '2018-12-13 21:17:34.787302', 2, 4),
+(5, '2018-12-13 21:17:40.865886', 3, 5);
 
 -- --------------------------------------------------------
 
@@ -230,7 +259,13 @@ INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`,
 (7, '2018-12-13 20:55:44.770721', '1', '236988542', 1, '[{\"added\": {}}]', 8, 1),
 (8, '2018-12-13 20:55:49.631962', '2', '69855412', 1, '[{\"added\": {}}]', 8, 1),
 (9, '2018-12-13 20:55:54.557988', '3', '3652214584', 1, '[{\"added\": {}}]', 8, 1),
-(10, '2018-12-13 20:55:59.037839', '4', '8954112541', 1, '[{\"added\": {}}]', 8, 1);
+(10, '2018-12-13 20:55:59.037839', '4', '8954112541', 1, '[{\"added\": {}}]', 8, 1),
+(11, '2018-12-13 21:04:23.678724', '1', 'speedadmin', 2, '[{\"changed\": {\"fields\": [\"first_name\", \"last_name\"]}}]', 4, 1),
+(12, '2018-12-13 21:17:13.439621', '1', '1', 1, '[{\"added\": {}}]', 9, 1),
+(13, '2018-12-13 21:17:21.695423', '2', '2', 1, '[{\"added\": {}}]', 9, 1),
+(14, '2018-12-13 21:17:30.001430', '3', '3', 1, '[{\"added\": {}}]', 9, 1),
+(15, '2018-12-13 21:17:34.787633', '4', '4', 1, '[{\"added\": {}}]', 9, 1),
+(16, '2018-12-13 21:17:40.866226', '5', '5', 1, '[{\"added\": {}}]', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -256,6 +291,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (4, 'auth', 'user'),
 (5, 'contenttypes', 'contenttype'),
 (8, 'couriertrack', 'parceldata'),
+(9, 'couriertrack', 'parcelstatus'),
 (7, 'couriertrack', 'statusdata'),
 (6, 'sessions', 'session');
 
@@ -294,7 +330,9 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (14, 'auth', '0009_alter_user_last_name_max_length', '2018-12-13 18:43:44.584986'),
 (15, 'sessions', '0001_initial', '2018-12-13 18:43:45.129001'),
 (16, 'couriertrack', '0001_initial', '2018-12-13 20:37:53.450895'),
-(17, 'couriertrack', '0002_parceldata', '2018-12-13 20:55:22.433977');
+(17, 'couriertrack', '0002_parceldata', '2018-12-13 20:55:22.433977'),
+(18, 'couriertrack', '0003_parcelstatus', '2018-12-13 21:16:44.914955'),
+(19, 'couriertrack', '0004_auto_20181214_0320', '2018-12-13 21:20:25.290519');
 
 -- --------------------------------------------------------
 
@@ -372,6 +410,14 @@ ALTER TABLE `couriertrack_parceldata`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `couriertrack_parcelstatus`
+--
+ALTER TABLE `couriertrack_parcelstatus`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `couriertrack_parcels_parcel_id_bb0659c7_fk_couriertr` (`parcel_id`),
+  ADD KEY `couriertrack_parcels_status_id_ccd541c5_fk_couriertr` (`status_id`);
+
+--
 -- Indexes for table `couriertrack_statusdata`
 --
 ALTER TABLE `couriertrack_statusdata`
@@ -423,7 +469,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT for table `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `auth_user`
 --
@@ -445,6 +491,11 @@ ALTER TABLE `auth_user_user_permissions`
 ALTER TABLE `couriertrack_parceldata`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `couriertrack_parcelstatus`
+--
+ALTER TABLE `couriertrack_parcelstatus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `couriertrack_statusdata`
 --
 ALTER TABLE `couriertrack_statusdata`
@@ -453,17 +504,17 @@ ALTER TABLE `couriertrack_statusdata`
 -- AUTO_INCREMENT for table `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- Constraints for dumped tables
 --
@@ -494,6 +545,13 @@ ALTER TABLE `auth_user_groups`
 ALTER TABLE `auth_user_user_permissions`
   ADD CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `couriertrack_parcelstatus`
+--
+ALTER TABLE `couriertrack_parcelstatus`
+  ADD CONSTRAINT `couriertrack_parcels_parcel_id_bb0659c7_fk_couriertr` FOREIGN KEY (`parcel_id`) REFERENCES `couriertrack_parceldata` (`id`),
+  ADD CONSTRAINT `couriertrack_parcels_status_id_ccd541c5_fk_couriertr` FOREIGN KEY (`status_id`) REFERENCES `couriertrack_statusdata` (`id`);
 
 --
 -- Constraints for table `django_admin_log`
