@@ -28,7 +28,7 @@
                 <!-- /.Breadcrumb -->
 
                 <!-- Tracking -->
-                <section class="pt-50 pb-120 tracking-wrap" style="padding-bottom: 60px;">
+                <section class="pt-50 pb-120 tracking-wrap" style="padding-bottom: 40px;">
                     <div class="theme-container container ">
                         <div class="row pad-10">
                             <div class="col-md-8 col-md-offset-2 tracking-form wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
@@ -47,6 +47,12 @@
                                         </div>
                                     </form>
                                 </div>
+
+                                      <p>Your search numbers are <strong>
+                                        {% for data in query_text %}
+                                          {{ data }},
+                                        {% endfor %}
+                                      </strong></p>
                             </div>
                         </div>
                     </div>
@@ -57,9 +63,32 @@
                     <div class="theme-container container ">
                       <div class="row pad-10">
                           <div class="col-md-8 col-md-offset-2 tracking-form wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
-                            <div class="alert alert-danger">
-                              <strong>Sorry!</strong> You have to insert a parcel number to view the status
-                            </div>
+                            <table class="table courier-track-data">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Parcel Number</th>
+                                  <th scope="col">Status</th>
+                                  <th scope="col">Date and Time</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                {% for search_obj in search_items  %}
+
+                                  <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>{{ search_obj.parcel.parcel_number }}</td>
+                                    <td>{{ search_obj.status.status_title }}</td>
+                                    <td>{{ search_obj.created_at }}</td>
+                                  </tr>
+
+                                {% endfor %}
+
+
+
+                              </tbody>
+                            </table>
                           </div>
                         </div>
 
