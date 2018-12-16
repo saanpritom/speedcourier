@@ -27,73 +27,117 @@
                 </section>
                 <!-- /.Breadcrumb -->
 
-                <!-- Tracking -->
-                <section class="pt-50 pb-120 tracking-wrap" style="padding-bottom: 40px;">
-                    <div class="theme-container container ">
+                {% if value == '1' %}
+
+                  <section class="pt-50 pb-120 tracking-wrap" style="padding-bottom: 20px;">
+                      <div class="theme-container container ">
+                          <div class="row pad-10">
+                              <div class="col-md-8 col-md-offset-2 tracking-form wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
+                                  <h2 class="title-1"> track your product </h2> <span class="font2-light fs-12">Please do not put any space incase of multiple search</span>
+                                  <div class="row">
+                                      <form class=""  method="get" action="{% url 'search_page' %}">
+                                        {% csrf_token %}
+                                          <div class="col-md-7 col-sm-7">
+                                              <div class="form-group">
+                                                  <input type="text" placeholder="Enter your product ID" required="" class="form-control box-shadow" name="q" value="{{ request.GET.get }}">
+                                              </div>
+                                          </div>
+                                          <div class="col-md-5 col-sm-5">
+                                              <div class="form-group">
+                                                  <input class="btn-1" type="submit" value="track your product"/>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+
+                                        <p>Your search numbers are <strong>
+                                          {% for data in query_text %}
+                                            {{ data }},
+                                          {% endfor %}
+                                        </strong></p>
+
+                                        <p>Total <strong>{{ total_results }}</strong> found</p>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+                  <!-- /.Tracking -->
+
+
+                  <section class="pt-50 pb-120 tracking-wrap" style="padding-top: 20px;">
+                      <div class="theme-container container ">
                         <div class="row pad-10">
                             <div class="col-md-8 col-md-offset-2 tracking-form wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
-                                <h2 class="title-1"> track your product </h2> <span class="font2-light fs-12">Now you can track your product easily</span>
-                                <div class="row">
-                                    <form class=""  method="get" action="{% url 'search_page' %}">
-                                        <div class="col-md-7 col-sm-7">
-                                            <div class="form-group">
-                                                <input type="text" placeholder="Enter your product ID" required="" class="form-control box-shadow" name="q" value="{{ request.GET.get }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5 col-sm-5">
-                                            <div class="form-group">
-                                                <input class="btn-1" type="submit" value="track your product"/>
-                                            </div>
-                                        </div>
-                                    </form>
+
+                              {% if total_results > 0 %}
+
+                                <table class="table courier-track-data">
+                                  <thead class="thead-dark">
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Parcel Number</th>
+                                      <th scope="col">Status</th>
+                                      <th scope="col">Date and Time</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+
+                                    {% for search_obj in search_items  %}
+
+                                      <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ search_obj.parcel.parcel_number }}</td>
+                                        <td>{{ search_obj.status.status_title }}</td>
+                                        <td>{{ search_obj.created_at }}</td>
+                                      </tr>
+
+                                    {% endfor %}
+
+
+
+                                  </tbody>
+                                </table>
+
+                                {% else %}
+
+                                <div class="alert alert-danger">
+                                  <strong>Sorry!</strong> No results found
                                 </div>
 
-                                      <p>Your search numbers are <strong>
-                                        {% for data in query_text %}
-                                          {{ data }},
-                                        {% endfor %}
-                                      </strong></p>
+
+                              {% endif %}
+
+
+
+
                             </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- /.Tracking -->
-
-                <section class="pt-50 pb-120 tracking-wrap">
-                    <div class="theme-container container ">
-                      <div class="row pad-10">
-                          <div class="col-md-8 col-md-offset-2 tracking-form wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
-                            <table class="table courier-track-data">
-                              <thead class="thead-dark">
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Parcel Number</th>
-                                  <th scope="col">Status</th>
-                                  <th scope="col">Date and Time</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-
-                                {% for search_obj in search_items  %}
-
-                                  <tr>
-                                    <th scope="row">{{ forloop.counter }}</th>
-                                    <td>{{ search_obj.parcel.parcel_number }}</td>
-                                    <td>{{ search_obj.status.status_title }}</td>
-                                    <td>{{ search_obj.created_at }}</td>
-                                  </tr>
-
-                                {% endfor %}
-
-
-
-                              </tbody>
-                            </table>
                           </div>
-                        </div>
 
-                    </div>
-                </section>
+                      </div>
+                  </section>
+
+
+                  {% else %}
+                      <section class="pt-50 pb-120 tracking-wrap" style="padding-top: 20px;">
+                        <div class="theme-container container ">
+                          <div class="row pad-10">
+                              <div class="col-md-8 col-md-offset-2 tracking-form wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
+
+                                <div class="alert alert-danger">
+                                  <strong>Sorry!</strong> You have no benefit trying this at home
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                      </section>
+
+                {% endif %}
+
+                <!-- Tracking -->
+
+
+
 
             </article>
             <!-- /.Content Wrapper -->

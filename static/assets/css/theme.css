@@ -2779,3 +2779,11 @@ textarea:focus:-ms-input-placeholder {
 .courier-track-data{
   box-shadow: 3px 3px;
 }
+
+.courier-track-data > thead > tr > th{
+  color: black;
+}
+
+.courier-track-data > tbody > tr > td{
+  color: black;
+}
