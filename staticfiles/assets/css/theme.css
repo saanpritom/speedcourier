@@ -233,7 +233,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: normal;
     background: #ffffff;
-    color: #acacac;
+    color:  #212f3d;
     -webkit-font-kerning: auto;
     -webkit-font-smoothing: antialiased;
     -webkit-backface-visibility: visible !important;
@@ -572,7 +572,7 @@ label{
     border-color: #e7e8ec;
     border-radius: 3px;
     box-shadow: none;
-    color: #c7c7c7;
+    color: #212f3d;
     font-size: 14px;
     height: 46px;
     padding: 10px 20px;
@@ -2766,6 +2766,9 @@ textarea:focus:-ms-input-placeholder {
     .theme-countdown > span {
         font-size: 20px;
         margin-right: 0;
+    }
+    .counter-car-image{
+      visibility: hidden;
     }
     /*---- Pages Ends  ---*/
 }

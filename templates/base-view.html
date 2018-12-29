@@ -76,6 +76,8 @@
                                     	<li {% if request.path == url_check %} class="active"{% endif %}><a href="{% url 'tracking-page' %}"> tracking </a> </li>
                                       {% url 'contact-page' as url_check %}
                                     	<li {% if request.path == url_check %} class="active"{% endif %} style="padding-top: 5px;"><a href="{% url 'contact-page' %}"> contact </a> </li>
+                                      {% url 'client-page' as url_check %}
+                                    	<li {% if request.path == url_check %} class="active"{% endif %} style="padding-top: 5px;"><a href="{% url 'client-page' %}"> clients </a> </li>
                                     </ul>
                                 </div>
                             </div>
@@ -99,10 +101,10 @@
                     <div class="theme-container container">
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
-                                <p> © Copyright 2019 Speed Line Express Ltd., All rights reserved </p>
+                                <p style="color: #fff;"> © Copyright 2019 Speed Line Express Ltd., All rights reserved </p>
                             </div>
                             <div class="col-md-6 col-sm-6 text-right">
-                                <p> Developed and <span class="theme-clr fa fa-heart"></span>  by <a href="#" class="main-clr"> Skooby </a> </p>
+                                <p style="color: #fff;"> Developed and <span class="theme-clr fa fa-heart"></span>  by <a href="#" class="main-clr"> Skooby </a> </p>
                             </div>
                         </div>
                     </div>

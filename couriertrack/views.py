@@ -19,6 +19,10 @@ def aboutpage(request):
     return render(request, 'about-us-page-view.html')
 
 
+def clientpage(request):
+    return render(request, 'client-page-view.html')
+
+
 def trackingpage(request):
     return render(request, 'tracking-page-view.html')
 
@@ -40,3 +44,11 @@ def search(request):
     except AttributeError as e:
         context = {'value': '2'}
         return render(request, template_name, context)
+
+
+def handler404(request):
+    return render(request, '404.html', status=404)
+
+
+def handler500(request):
+    return render(request, '404.html', status=500)

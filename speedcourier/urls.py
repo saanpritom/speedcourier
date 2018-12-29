@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import handler404, handler500
+from couriertrack import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('couriertrack.urls'), name='couriertrack_app'),
 ]
+
+handler404 = views.handler404
+handler500 = views.handler500
