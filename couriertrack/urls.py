@@ -9,4 +9,5 @@ urlpatterns = [
     path('clients/', views.clientpage, name='client-page'),
     path('tracking/', views.trackingpage, name='tracking-page'),
     path('tracking/result', views.search, name='search_page'),
+    path('parcel/autocomplete', views.ParcelStatusAutocomplete.as_view(), name='parcel-autocomplete'),
 ]

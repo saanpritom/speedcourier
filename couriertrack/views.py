@@ -5,6 +5,7 @@ from itertools import chain
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 import operator
 from functools import reduce
+from dal import autocomplete
 
 # Create your views here.
 def homepage(request):
@@ -52,3 +53,18 @@ def handler404(request):
 
 def handler500(request):
     return render(request, '404.html', status=500)
+
+
+#autocomplete form in admin
+class ParcelStatusAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return ParcelData.objects.none()
+
+        qs = ParcelData.objects.all()
+
+        if self.q:
+            qs = qs.filter(parcel_number__istartswith=self.q)
+
+        return qs
